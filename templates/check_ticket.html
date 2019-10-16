@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% if win %}
+<p>you won</p>
+{% else %}
+<p>you lose</p>
+{% endif %}
+
+{% for num in guessed_nums %}
+<p> guessed nums: {{ num }} </p>
+{% endfor %}
+----------------------
+{% for num in winning_nums %}
+<p> winning nums: {{ num }} </p>
+{% endfor %}
+
+{% endblock body %}

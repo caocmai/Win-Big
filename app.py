@@ -1,32 +1,49 @@
 import random
-from flask import Flask, render_template, url_for, request
-random.seed(40)
-
-guessed_nums = []
+from flask import Flask, render_template, url_for, request, redirect
+# random.seed(40)
 
 app = Flask(__name__)
+winning_nums = [2,3,6]
+guessed_nums = []
 
 @app.route("/get_form_data", methods=["POST"])
 def get_form_data():
   num1 = request.form.get("number1")
-  guessed_nums.append(num1)
-  return render_template("ticket_page.html", all_guessed_nums=guessed_nums)
+  guessed_nums.append(int(num1))
+  return redirect(url_for("view_ticket"))
 
 @app.route("/")
 def index():
-    """Return homepage."""
-    return render_template("home.html", title={})
+  return render_template("home.html", title={})
 
+@app.route("/view_ticket")
+def view_ticket():
+  guessed_nums.sort()
+  return render_template("ticket_page.html", all_guessed_nums=guessed_nums)
+
+@app.route("/get_random_num")
 def get_random_num():
   random_num = random.randrange(1,11)
   guessed_nums.append(random_num)
-  
+  return redirect(url_for("view_ticket"))
+
+@app.route("/check_ticket")
+def check_ticket():
+  if win(winning_nums, guessed_nums):
+    return render_template("check_ticket.html", win=True, winning_nums=winning_nums, guessed_nums=guessed_nums)
+  else:
+    return render_template("check_ticket.html", win={}, winning_nums=winning_nums, guessed_nums=guessed_nums)
+
+@app.route("/reset_num")
+def reset_num():
+  guessed_nums.clear()
+  return redirect(url_for("view_ticket"))
 
 if __name__ == "__main__":
     app.run(debug=True)
 
 
-winning_nums = [2,3,6]
+
 # all_guessed_nums = [2,3,7,9]
 all_guessed_nums = [[2,3,4,5], [2,3,6], [2,3,5], [5,6,7,8]]
 
