@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+
+    <meta charset="UTF-8">
+    {% if title %} 
+        <title> {{ title }}</title>
+    {% else %}
+        <title>Guess Till You Win</title>
+    {% endif %}
+</head>
+<body>
+    {% block body %} {% endblock body %}
+</body>
+</html>

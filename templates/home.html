@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block body %} 
+<p id="num"></p>
+<button onclick="random()">Random</button>
+
+<script>
+ function random(){
+
+document.getElementById("num").innerHTML = Math.floor(Math.random() * 10) + 1;
+}
+</script>
+
+<form action="/get_form_data" method="post">
+    Number 1: 
+    <input type="number" name="number1">
+    <input type="submit" value="Add Number">
+</form>
+{% endblock body %}

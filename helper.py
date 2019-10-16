@@ -1,5 +1,5 @@
 import random
-# random.seed(40)
+random.seed(40)
 
 winning_nums = [] # 8,10,9
 guessed_nums = []
@@ -46,3 +46,4 @@ print(f"lose count: {count_lose}")
 
 print("probablity of wiining " + str(round((count_win/count_lose * 100), 2 )))
 print(f"Winning numbers are: {winning_nums}")
+

@@ -1,15 +1,28 @@
 import random
+from flask import Flask, render_template, url_for, request
 random.seed(40)
-from flask import Flask
+
+guessed_nums = []
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route("/get_form_data", methods=["POST"])
+def get_form_data():
+  num1 = request.form.get("number1")
+  guessed_nums.append(num1)
+  return render_template("ticket_page.html", all_guessed_nums=guessed_nums)
+
+@app.route("/")
 def index():
     """Return homepage."""
-    return 'Hello, world!'
+    return render_template("home.html", title={})
 
-if __name__ == '__main__':
+def get_random_num():
+  random_num = random.randrange(1,11)
+  guessed_nums.append(random_num)
+  
+
+if __name__ == "__main__":
     app.run(debug=True)
 
 
@@ -45,6 +58,6 @@ def check_all(win_nums, guessed_nums_list):
       # print("you lose")
   return win_count
 
-print(f"You won {check_all(winning_nums, all_guessed_nums)} out of {len(all_guessed_nums)} plays.")
-print("For " + str(check_all(winning_nums, all_guessed_nums)/len(all_guessed_nums)) + " percent.")
+# print(f"You won {check_all(winning_nums, all_guessed_nums)} out of {len(all_guessed_nums)} plays.")
+# print("For " + str(check_all(winning_nums, all_guessed_nums)/len(all_guessed_nums)) + " percent.")
 # print((check_all(winning_nums, all_guessed_nums)/len(all_guessed_nums)))
