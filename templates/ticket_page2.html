@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block body %}
+<ul>
+{% for ticket in tickets %}
+<li><a id="list_id_color" href = "/tickets/{{ ticket._id }}/edit"">{{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}</li>
+{% endfor %}
+</ul>
+<a href="/get_random_num">Add Another Random Num</a><br>
+<a href="/check_ticket">Check Ticket</a>
+<a href="/delete_all")>Reset Ticket</a>
+{% endblock body %}
