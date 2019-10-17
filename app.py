@@ -43,6 +43,11 @@ def edit_ticket(ticket_id):
   ticket = tickets.find_one({"_id": ObjectId(ticket_id)})
   return render_template("edit_ticket.html", ticket=ticket, title="Edit Ticket")
 
+@app.route("/tickets/delete/<ticket_id>", methods=["POST"])
+def delete_single(ticket_id):
+  tickets.delete_one({"_id": ObjectId(ticket_id)})
+  return redirect(url_for("view_ticket"))
+
 @app.route("/tickets/<ticket_id>", methods=["POST"])
 def update_ticket(ticket_id):
   updated_ticket = {
@@ -66,19 +71,27 @@ def win(win_nums, guessed_nums):
 @app.route("/check_ticket")
 def check_ticket():
   all_guessed_nums = []
-
+  num_tickets = 0
+  cost = 0
   for ticket in tickets.find({}):
     guessed_nums_temp = []
     guessed_nums_temp.append(int(ticket["number1"]))
     guessed_nums_temp.append(int(ticket["number2"]))
     guessed_nums_temp.append(int(ticket["number3"]))
     # guessed_nums_temp.sort()
+    num_tickets += 1
     all_guessed_nums.append(guessed_nums_temp)
     guessed_nums_temp = []
   
   win_times = check_all(winning_nums, all_guessed_nums)
 
-  return render_template("checking_page.html", win=win_times, winning_nums=winning_nums, tickets=tickets.find())
+  if num_tickets > 0:
+    for _ in range(num_tickets):
+      cost -= 2
+  if win_times > 0:
+    cost = (500 * win_times) + cost
+
+  return render_template("checking_page.html", win=win_times, winning_nums=winning_nums, tickets=tickets.find(), count=num_tickets, cost=cost)
 
 @app.route("/play_to_win")
 def play_to_win():
@@ -111,7 +124,9 @@ def check_play_to_win():
     
     generated_num = []
 
-  return render_template("test2.html", to_win_nums=to_win_nums, count_lose=count_lose, count_win=count_win)
+    cost = (count_lose * 2) - (count_win * 500)
+
+  return render_template("test2.html", to_win_nums=to_win_nums, count_lose=count_lose, count_win=count_win, cost=cost)
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -28,5 +28,14 @@ Wining Numbers:
 <br>
 Number of Wins: {{ win }}
 <br>
+Nmber of Tickets Played: {{ count }}
+<br>
+<!-- Your Win: ${{ cost }} -->
+
+{% if cost > 0 %}
+You win: {{cost}}
+{% else %}
+you lose: {{cost }}
+{% endif %}
 <a href="/delete_all")>Play Again</a>
 {% endblock body %}

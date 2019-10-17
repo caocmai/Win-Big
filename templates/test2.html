@@ -10,4 +10,10 @@ Playing till win with:
 <img src="http://www.faicoach.com/wp-content/uploads/2017/10/cash-burn.jpg" class="rounded" style="width:700px;height:500px;" alt="Money">
 
 <p>It took {{ count_lose }} tries to win once</p>
+{% if cost > 0 %}
+You lose: {{cost}}
+{% else %}
+you win: {{cost }}
+{% endif %}
+
 {% endblock body %}
