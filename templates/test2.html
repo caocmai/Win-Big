@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 
 {% block body %}
+<p>
 {% for num in to_win_nums %}
 {{ num }}
 {% endfor %}
-{{ count_lose }}
+</p>
+<p>It took {{ count_lose }} tries to win once</p>
 {% endblock body %}

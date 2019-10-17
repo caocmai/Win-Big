@@ -72,7 +72,7 @@ def check_ticket():
     guessed_nums_temp.append(int(ticket["number1"]))
     guessed_nums_temp.append(int(ticket["number2"]))
     guessed_nums_temp.append(int(ticket["number3"]))
-    guessed_nums_temp.sort()
+    # guessed_nums_temp.sort()
     all_guessed_nums.append(guessed_nums_temp)
     guessed_nums_temp = []
   
@@ -96,8 +96,8 @@ def check_play_to_win():
   count_lose = 0
   count_win = 0
   while count_win <= 0:
-    to_win_nums.sort()
-    generated_num.sort()
+    # to_win_nums.sort()
+    # generated_num.sort()
 
     for _ in range(3):
       new_num = random.randrange(1,11)
@@ -115,7 +115,6 @@ def check_play_to_win():
 
 if __name__ == "__main__":
     app.run(debug=True)
-
 
 
 # all_guessed_nums = [2,3,7,9]
