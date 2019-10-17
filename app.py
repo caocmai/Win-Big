@@ -22,7 +22,7 @@ def get_form_data():
   }
   tickets.insert_one(ticket)
   # guessed_nums.append(int(num1))
-  return redirect(url_for("view_ticket2"))
+  return redirect(url_for("view_ticket"))
 
 @app.route("/")
 def index(): 
@@ -34,9 +34,9 @@ def delete_all():
     tickets.remove()
     return redirect(url_for("index"))
 
-@app.route("/view_ticket2")
-def view_ticket2():
-  return render_template("ticket_page2.html", tickets=tickets.find(), title="Check Ticket")
+@app.route("/view_ticket")
+def view_ticket():
+  return render_template("ticket_page.html", tickets=tickets.find(), title="Check Ticket")
 
 @app.route("/tickets/<ticket_id>/edit")
 def edit_ticket(ticket_id):
@@ -54,19 +54,9 @@ def update_ticket(ticket_id):
     {"_id": ObjectId(ticket_id)},
     {"$set": updated_ticket}
     )
-  return render_template("ticket_page2.html", tickets=tickets.find(), title="Check Ticket")
+  return render_template("ticket_page.html", tickets=tickets.find(), title="Check Ticket")
 
-@app.route("/view_ticket")
-def view_ticket():
-  guessed_nums.sort()
-  return render_template("ticket_page.html", all_guessed_nums=guessed_nums)
-
-@app.route("/get_random_num")
-def get_random_num():
-  random_num = random.randrange(1,11)
-  guessed_nums.append(random_num)
-  return redirect(url_for("view_ticket"))
-
+# Helper function to determin if numbers are match to winning ticket
 def win(win_nums, guessed_nums):
   for i in range(len(win_nums)):
       if win_nums[i] != guessed_nums[i]:
@@ -88,12 +78,40 @@ def check_ticket():
   
   win_times = check_all(winning_nums, all_guessed_nums)
 
-  return render_template("test.html", win=win_times)
+  return render_template("checking_page.html", win=win_times, winning_nums=winning_nums, tickets=tickets.find())
 
-@app.route("/reset_num")
-def reset_num():
-  guessed_nums.clear()
-  return redirect(url_for("view_ticket"))
+@app.route("/play_to_win")
+def play_to_win():
+  return render_template("play_to_win_form.html")
+
+@app.route("/check_play_to_win", methods=["POST"])
+def check_play_to_win():
+  to_win_nums = []
+  generated_num = []
+
+  to_win_nums.append(int(request.form.get("number1")))
+  to_win_nums.append(int(request.form.get("number2")))
+  to_win_nums.append(int(request.form.get("number3")))
+
+  count_lose = 0
+  count_win = 0
+  while count_win <= 0:
+    to_win_nums.sort()
+    generated_num.sort()
+
+    for _ in range(3):
+      new_num = random.randrange(1,11)
+      generated_num.append(new_num)
+  
+    print(generated_num)
+    if win(to_win_nums,generated_num):
+      count_win += 1
+    else:
+      count_lose += 1
+    
+    generated_num = []
+
+  return render_template("test2.html", to_win_nums=to_win_nums, count_lose=count_lose, count_win=count_win)
 
 if __name__ == "__main__":
     app.run(debug=True)

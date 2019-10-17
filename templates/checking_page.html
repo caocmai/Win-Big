@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block body %}
+<ul>Picked Numbers: 
+{% for ticket in tickets %}
+    <li>{{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}</li>
+{% endfor %}
+</ul>
+<br>
+
+<!-- GuessNums
+{% for num in guessed_nums %}
+{{ num }}
+{% endfor %} -->
+<br>
+Wining Numbers:
+{% for num in winning_nums %}
+{{ num }}
+{% endfor %}
+
+<br>
+Number of Wins: {{ win }}
+<br>
+<a href="/delete_all")>Play Again</a>
+{% endblock body %}

@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block body %}
+{% for num in to_win_nums %}
+{{ num }}
+{% endfor %}
+{{ count_lose }}
+{% endblock body %}

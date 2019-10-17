@@ -1,10 +1,12 @@
 {% extends "base.html" %}
 
 {% block body %}
-{% for num in all_guessed_nums %}
-    <p>{{ num }} </p>
+<ul>
+{% for ticket in tickets %}
+<li><a id="list_id_color" href = "/tickets/{{ ticket._id }}/edit"">{{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}</li>
 {% endfor %}
-<a href="/get_random_num">Add Another Random Num</a><br>
+</ul>
 <a href="/check_ticket">Check Ticket</a>
-<a href="/reset_num">Reset Ticket</a>
+<a href="/">Add More</a>
+<a href="/delete_all")>Reset Ticket</a>
 {% endblock body %}

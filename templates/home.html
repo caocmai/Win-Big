@@ -2,47 +2,11 @@
 
 {% block body %} 
 
-
 <form action="/get_form_data" method="post">
-    Number 1: 
-    <input type="number" name="number1" id="num">
-
-    <button OnClick="GetRandom1()" type="button">Random Number</button>
-    <script>
-        function GetRandom1()
-        {
-            var myElement = document.getElementById("num")
-            myElement.value = Math.round((Math.random() * 10) + 1)
-        }
-    </script>
-
-    Number 2:
-    <input type="number" name="number2" id="num2">
-    <button OnClick="GetRandom2()" type="button">Random Number</button>
-    <script>
-            function GetRandom2()
-            {
-                var myElement = document.getElementById("num2")
-                myElement.value = Math.round((Math.random() * 10) + 1)
-            }
-    </script>
-
-    Number 3: 
-    <input type="number" name="number3" id="num3">
-
-    <button OnClick="GetRandom3()" type="button">Random Number</button>
-    <script>
-            function GetRandom3()
-            {
-                var myElement = document.getElementById("num3")
-                myElement.value = Math.round((Math.random() * 10) + 1)
-            }
-    </script>
-
-    <input type="submit" value="Add Number">
+    {% include "partials/getting_nums.html" %}
+    <input type="submit" value="Add Numbers" name="add_numbers">
 </form>
-
-<a href="/get_random_num">Add Random Num</a><br>
+<a href="/play_to_win">Play to Win</a><br>
 <a href="/view_ticket">View Ticket Page</a><br>
 <a href="/check_ticket">Check Ticket</a>
 <a href="/delete_all">Delet All</a>
