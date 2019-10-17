@@ -100,7 +100,7 @@ def check_play_to_win():
     # generated_num.sort()
 
     for _ in range(3):
-      new_num = random.randrange(1,11)
+      new_num = random.randrange(1,10)
       generated_num.append(new_num)
   
     print(generated_num)
@@ -129,8 +129,6 @@ all_guessed_nums = [[2,3,4,5], [2,3,6], [2,3,5], [5,6,7,8]]
 
 # generate_random_num(3)
 # print(random_guessed_nums)
-
-
 
 
 # print(win(winning_nums, all_guessed_nums))

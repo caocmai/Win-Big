@@ -2,9 +2,12 @@
 
 {% block body %}
 <p>
+Playing till win with: 
 {% for num in to_win_nums %}
-{{ num }}
+    {{ num }}
 {% endfor %}
 </p>
+<img src="http://www.faicoach.com/wp-content/uploads/2017/10/cash-burn.jpg" class="rounded" style="width:700px;height:500px;" alt="Money">
+
 <p>It took {{ count_lose }} tries to win once</p>
 {% endblock body %}

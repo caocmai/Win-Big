@@ -1,11 +1,18 @@
 {% extends "base.html" %}
 
 {% block body %}
-<ul>Picked Numbers: 
-{% for ticket in tickets %}
-    <li>{{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}</li>
-{% endfor %}
-</ul>
+<div class="row">
+    <div class="col-md-12 text-center">
+        <ul class="text-left" style="display:inline-block;vertical-align:middle;">
+            <h5>Picked Numbers: </h5>
+            {% for ticket in tickets %}
+            <li>{{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+
+
 <br>
 
 <!-- GuessNums
