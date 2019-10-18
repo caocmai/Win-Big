@@ -4,6 +4,7 @@
 <form action="/tickets/{{ ticket._id }}", method="POST">
 {% include "partials/rules.html" %}
     Editing Ticket: {{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}
+    <br>
 {% include "partials/getting_nums.html" %}
 <button class="btn btn-success" type="submit">Save</button>
 </form>
