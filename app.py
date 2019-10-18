@@ -139,5 +139,14 @@ def check_play_to_win():
   return render_template("test2.html", to_win_nums=to_win_nums, 
                           count_lose=count_lose, count_win=count_win, cost=cost)
 
+def check_all(win_nums, guessed_nums_list):
+  win_count = 0
+  for i in range(len(guessed_nums_list)):
+    if win(win_nums, guessed_nums_list[i]):
+      win_count += 1
+    # else:
+      # print("you lose")
+  return win_count
+
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

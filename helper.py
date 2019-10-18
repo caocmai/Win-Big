@@ -4,14 +4,7 @@ random.seed(40)
 all_guessed_nums = [[2,3,4,5], [2,3,6], [2,3,5], [5,6,7,8]]
 
 
-def check_all(win_nums, guessed_nums_list):
-  win_count = 0
-  for i in range(len(guessed_nums_list)):
-    if win(win_nums, guessed_nums_list[i]):
-      win_count += 1
-    # else:
-      # print("you lose")
-  return win_count
+
 
 winning_nums = [] # 8,10,9
 guessed_nums = []
