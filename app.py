@@ -5,9 +5,16 @@ from bson.objectid import ObjectId
 import os
 # random.seed(40)
 
-client = MongoClient()
-db = client.first_intensive
+# For Heroku
+host = os.environ.get("MONGODB_URI", "mongodb://admin:abc123@ds335678.mlab.com:35678/heroku_c4rczcz7")
+client = MongoClient(host=f'{host}?retryWrites=false')
+db = client.get_default_database()
 tickets = db.tickets
+
+# For Local
+# client = MongoClient()
+# db = client.first_intensive
+# tickets = db.tickets
 
 app = Flask(__name__)
 winning_nums = [2,3,6]
@@ -132,35 +139,5 @@ def check_play_to_win():
   return render_template("test2.html", to_win_nums=to_win_nums, 
                           count_lose=count_lose, count_win=count_win, cost=cost)
 
-if __name__ == "__main__":
-    app.run(debug=True)
-
-
-# all_guessed_nums = [2,3,7,9]
-all_guessed_nums = [[2,3,4,5], [2,3,6], [2,3,5], [5,6,7,8]]
-
-# random_guessed_nums = []
-
-# def generate_random_num(times):
-#   for _ in range(times):
-#     random_num = random.randrange(1,11)
-#     random_guessed_nums.append(random_num)
-
-# generate_random_num(3)
-# print(random_guessed_nums)
-
-
-# print(win(winning_nums, all_guessed_nums))
-
-def check_all(win_nums, guessed_nums_list):
-  win_count = 0
-  for i in range(len(guessed_nums_list)):
-    if win(win_nums, guessed_nums_list[i]):
-      win_count += 1
-    # else:
-      # print("you lose")
-  return win_count
-
-# print(f"You won {check_all(winning_nums, all_guessed_nums)} out of {len(all_guessed_nums)} plays.")
-# print("For " + str(check_all(winning_nums, all_guessed_nums)/len(all_guessed_nums)) + " percent.")
-# print((check_all(winning_nums, all_guessed_nums)/len(all_guessed_nums)))
+if __name__ == '__main__':
+  app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))
