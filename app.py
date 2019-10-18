@@ -5,7 +5,7 @@ from bson.objectid import ObjectId
 import os
 # random.seed(40)
 
-# For Heroku
+# For Heroku both host lines work for Heroku
 # host = os.environ.get("MONGODB_URI", "mongodb://admin:abc123@ds335678.mlab.com:35678/heroku_c4rczcz7")
 host = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/testing")
 client = MongoClient(host=f'{host}?retryWrites=false')
