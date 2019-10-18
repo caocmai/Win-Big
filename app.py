@@ -6,7 +6,8 @@ import os
 # random.seed(40)
 
 # For Heroku
-host = os.environ.get("MONGODB_URI", "mongodb://admin:abc123@ds335678.mlab.com:35678/heroku_c4rczcz7")
+# host = os.environ.get("MONGODB_URI", "mongodb://admin:abc123@ds335678.mlab.com:35678/heroku_c4rczcz7")
+host = os.environ.get("MONGODB_URI", "mongodb://localhost:27017/testing")
 client = MongoClient(host=f'{host}?retryWrites=false')
 db = client.get_default_database()
 tickets = db.tickets
