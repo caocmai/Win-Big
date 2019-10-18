@@ -81,7 +81,7 @@ def win(win_nums, guessed_nums):
           return False
   return True
 
-# This is a function to check all instances in the list wins or not and adds to the count
+# This is a function to check all instances in the list wether matches or not and adds to the win count
 def check_all(win_nums, guessed_nums_list):
   win_count = 0
   for i in range(len(guessed_nums_list)):
@@ -156,7 +156,7 @@ def check_play_to_win():
 
     cost = (count_lose * 2) - (count_win * 500)
 
-  return render_template("test2.html", to_win_nums=to_win_nums, 
+  return render_template("till_win_check.html", to_win_nums=to_win_nums, 
                           count_lose=count_lose, count_win=count_win, cost=cost)
 
 if __name__ == '__main__':
