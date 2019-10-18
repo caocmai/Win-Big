@@ -19,6 +19,12 @@ tickets = db.tickets
 app = Flask(__name__)
 winning_nums = [2,3,6]
 
+''' This is the index route '''
+@app.route("/")
+def index(): 
+  return render_template("home.html", title={}, ticket={})
+
+''' This route get the information from the form and adds it to the tickets db '''
 @app.route("/get_form_data", methods=["POST"])
 def get_form_data():
   # num1 = request.form.get("number1")
@@ -31,30 +37,24 @@ def get_form_data():
   # guessed_nums.append(int(num1))
   return redirect(url_for("view_ticket"))
 
-@app.route("/")
-def index(): 
-  return render_template("home.html", title={}, ticket={})
-
-# Delete entire ticket list
+# Deletes entire ticket list
 @app.route("/delete_all")
 def delete_all():
     tickets.remove()
     return redirect(url_for("index"))
 
+# This page displays all the tickets in the tickets db
 @app.route("/view_ticket")
 def view_ticket():
   return render_template("ticket_page.html", tickets=tickets.find(), title="View Ticket")
 
+''' This route takes the ticket id and finds it in the database and gets passed to edit ticket page '''
 @app.route("/tickets/<ticket_id>/edit")
 def edit_ticket(ticket_id):
   ticket = tickets.find_one({"_id": ObjectId(ticket_id)})
   return render_template("edit_ticket.html", ticket=ticket, title="Edit Ticket")
 
-@app.route("/tickets/delete/<ticket_id>", methods=["POST"])
-def delete_single(ticket_id):
-  tickets.delete_one({"_id": ObjectId(ticket_id)})
-  return redirect(url_for("view_ticket"))
-
+''' This route updates the ticket with new information from the ticket form with the original information '''
 @app.route("/tickets/<ticket_id>", methods=["POST"])
 def update_ticket(ticket_id):
   updated_ticket = {
@@ -68,13 +68,30 @@ def update_ticket(ticket_id):
     )
   return render_template("ticket_page.html", tickets=tickets.find(), title="Check Ticket")
 
-# Helper function to determin if numbers are match to winning ticket
+# This route deletes the ticket with a specific id and reroutes to the view ticket page
+@app.route("/tickets/delete/<ticket_id>", methods=["POST"])
+def delete_single(ticket_id):
+  tickets.delete_one({"_id": ObjectId(ticket_id)})
+  return redirect(url_for("view_ticket"))
+
+# Helper function to determine if numbers are matched to winning numbers
 def win(win_nums, guessed_nums):
   for i in range(len(win_nums)):
       if win_nums[i] != guessed_nums[i]:
           return False
   return True
 
+# This is a function to check all instances in the list wins or not and adds to the count
+def check_all(win_nums, guessed_nums_list):
+  win_count = 0
+  for i in range(len(guessed_nums_list)):
+    if win(win_nums, guessed_nums_list[i]):
+      win_count += 1
+    # else:
+      # print("you lose")
+  return win_count
+
+''' This route has all the logic and calculations to determine if ticket(s) matched to winning nums '''
 @app.route("/check_ticket")
 def check_ticket():
   all_guessed_nums = []
@@ -102,10 +119,13 @@ def check_ticket():
                           winning_nums=winning_nums, tickets=tickets.find(), 
                           count=num_tickets, cost=cost, title="Results")
 
+# This route goes to the play to win form when play till win is clicked
 @app.route("/play_to_win")
 def play_to_win():
   return render_template("play_to_win_form.html", title="Play Till Win", ticket={})
 
+''' This route has all the logic and calculations to determin the number of time
+    to win at least once when the play select their ticket numbers '''
 @app.route("/check_play_to_win", methods=["POST"])
 def check_play_to_win():
   to_win_nums = []
@@ -138,15 +158,6 @@ def check_play_to_win():
 
   return render_template("test2.html", to_win_nums=to_win_nums, 
                           count_lose=count_lose, count_win=count_win, cost=cost)
-
-def check_all(win_nums, guessed_nums_list):
-  win_count = 0
-  for i in range(len(guessed_nums_list)):
-    if win(win_nums, guessed_nums_list[i]):
-      win_count += 1
-    # else:
-      # print("you lose")
-  return win_count
 
 if __name__ == '__main__':
   app.run(debug=True, host='0.0.0.0', port=os.environ.get('PORT', 5000))

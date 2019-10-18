@@ -1,10 +1,11 @@
 import random
-random.seed(40)
+# random.seed(40)
+
+'''This file is just to help me get the logic right for the actual project
+   I still would like to keep it here for reference later
+'''
 
 all_guessed_nums = [[2,3,4,5], [2,3,6], [2,3,5], [5,6,7,8]]
-
-
-
 
 winning_nums = [] # 8,10,9
 guessed_nums = []
