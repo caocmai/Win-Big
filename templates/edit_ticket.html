@@ -2,16 +2,12 @@
 
 {% block body %}
 <form action="/tickets/{{ ticket._id }}", method="POST">
-<p>Editing: {{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }} </p>
-Number1:
-<input size="1" id='number1' type='number' name='number1' value = '{{ ticket.number1 }}' />
-<input id='number2' type='number' name='number2' value = '{{ ticket.number2 }}' />
-<input id='number3' type='number' name='number3' value = '{{ ticket.number3 }}' />
 
-<button type="submit">Save</button>
+{% include "partials/getting_nums.html" %}
+<button class="btn btn-success" type="submit">Save</button>
 </form>
 
 <form action="/tickets/delete/{{ ticket._id }}", method="POST">
-<button type="submit">Delete Ticket</button>
+<button class="btn btn-danger" type="submit">Delete Ticket</button>
 </form>
 {% endblock body %}

@@ -1,5 +1,5 @@
-Number 1: 
-<input type="number" name="number1" id="num">
+No. 1: 
+<input type="number" name="number1" id="num" value="{{ ticket.number1 }}">
 
 <button OnClick="GetRandom1()" type="button">Random Num</button>
 <script>
@@ -10,8 +10,8 @@ Number 1:
     }
 </script>
 
-Number 2:
-<input type="number" name="number2" id="num2">
+No. 2:
+<input type="number" name="number2" id="num2" value="{{ ticket.number2 }}">
 <button OnClick="GetRandom2()" type="button">Random Num</button>
 <script>
         function GetRandom2()
@@ -21,8 +21,8 @@ Number 2:
         }
 </script>
 
-Number 3: 
-<input type="number" name="number3" id="num3">
+No. 3: 
+<input type="number" name="number3" id="num3" value="{{ ticket.number3 }}">
 
 <button OnClick="GetRandom3()" type="button">Random Num</button>
 <script>

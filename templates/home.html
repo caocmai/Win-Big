@@ -1,13 +1,14 @@
 {% extends "base.html" %}
 
 {% block body %} 
-
+{% include "partials/rules.html" %}
 <form action="/get_form_data" method="post">
     {% include "partials/getting_nums.html" %}
-    <input type="submit" value="Add Numbers" name="add_numbers">
+    <input type="submit" value="Add Ticket" class="add_numbers">
 </form>
-<a href="/play_to_win">Play to Win</a><br>
+<br>
+<a class="btn btn-warning" href="/play_to_win">Play to Win</a><br>
 <a href="/view_ticket">View Ticket Page</a><br>
-<a href="/check_ticket">Check Ticket</a>
-<a href="/delete_all">Delete All</a>
+<!-- <a href="/check_ticket">Check Ticket</a> -->
+<!-- <a href="/delete_all">Delete All</a> -->
 {% endblock body %}

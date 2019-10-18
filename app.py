@@ -26,7 +26,7 @@ def get_form_data():
 
 @app.route("/")
 def index(): 
-  return render_template("home.html", title={})
+  return render_template("home.html", title={}, ticket={})
 
 # Delete entire ticket list
 @app.route("/delete_all")
@@ -36,7 +36,7 @@ def delete_all():
 
 @app.route("/view_ticket")
 def view_ticket():
-  return render_template("ticket_page.html", tickets=tickets.find(), title="Check Ticket")
+  return render_template("ticket_page.html", tickets=tickets.find(), title="View Ticket")
 
 @app.route("/tickets/<ticket_id>/edit")
 def edit_ticket(ticket_id):
@@ -91,11 +91,13 @@ def check_ticket():
   if win_times > 0:
     cost = (500 * win_times) + cost
 
-  return render_template("checking_page.html", win=win_times, winning_nums=winning_nums, tickets=tickets.find(), count=num_tickets, cost=cost)
+  return render_template("checking_page.html", win=win_times, 
+                          winning_nums=winning_nums, tickets=tickets.find(), 
+                          count=num_tickets, cost=cost, title="Results")
 
 @app.route("/play_to_win")
 def play_to_win():
-  return render_template("play_to_win_form.html")
+  return render_template("play_to_win_form.html", title="Play Till Win", ticket={})
 
 @app.route("/check_play_to_win", methods=["POST"])
 def check_play_to_win():
@@ -106,11 +108,12 @@ def check_play_to_win():
   to_win_nums.append(int(request.form.get("number2")))
   to_win_nums.append(int(request.form.get("number3")))
 
-  count_lose = 0
+  count_lose = 1
   count_win = 0
   while count_win <= 0:
     # to_win_nums.sort()
     # generated_num.sort()
+    # random.seed(40)
 
     for _ in range(3):
       new_num = random.randrange(1,10)
@@ -126,7 +129,8 @@ def check_play_to_win():
 
     cost = (count_lose * 2) - (count_win * 500)
 
-  return render_template("test2.html", to_win_nums=to_win_nums, count_lose=count_lose, count_win=count_win, cost=cost)
+  return render_template("test2.html", to_win_nums=to_win_nums, 
+                          count_lose=count_lose, count_win=count_win, cost=cost)
 
 if __name__ == "__main__":
     app.run(debug=True)

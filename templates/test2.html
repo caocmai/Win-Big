@@ -7,13 +7,31 @@ Playing till win with:
     {{ num }}
 {% endfor %}
 </p>
-<img src="http://www.faicoach.com/wp-content/uploads/2017/10/cash-burn.jpg" class="rounded" style="width:700px;height:500px;" alt="Money">
 
+<script>
+    function neg_to_pos(num)
+    {
+    return Math.abs(num);
+    }
+</script>
+<h5>
 <p>It took {{ count_lose }} tries to win once</p>
 {% if cost > 0 %}
-You lose: {{cost}}
+<p>
+You lost: ${{ cost }}
+</p>
+<br>
+<img src="http://www.faicoach.com/wp-content/uploads/2017/10/cash-burn.jpg" class="rounded" style="width:700px;height:500px;" alt="Money">
+<br>
 {% else %}
-you win: {{cost }}
+<p> 
+    You won: $<script>document.write(neg_to_pos({{ cost }}));</script>
+</p>
+<br>
+<img src="https://timedotcom.files.wordpress.com/2017/08/money-dirty-hands-microbes.jpg?quality=85&w=1012&h=569&crop=1" class="rounded" style="width:700px;height:500px;" alt="Money">
+</h5>
 {% endif %}
+<br>
+<button value="Refresh Page" onClick="window.location.reload();">Play Again Now</button>
 
 {% endblock body %}

@@ -2,7 +2,9 @@
 
 {% block body %} 
 <form action="/check_play_to_win" method="post">
+    {% include "partials/rules.html" %}
     {% include "partials/getting_nums.html" %}
-    <input type="submit" value="Play Till Win" name="play_till_win">
+    <br><br>
+    <input class="btn btn-warning" type="submit" value="Play Till Win" name="play_till_win">
 </form>
 {% endblock body %}

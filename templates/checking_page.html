@@ -12,19 +12,12 @@
     </div>
 </div>
 
-
 <br>
-
-<!-- GuessNums
-{% for num in guessed_nums %}
-{{ num }}
-{% endfor %} -->
-<br>
-Wining Numbers:
+<h5>Wining Numbers:
 {% for num in winning_nums %}
 {{ num }}
 {% endfor %}
-
+</h5>
 <br>
 Number of Wins: {{ win }}
 <br>
@@ -32,10 +25,19 @@ Nmber of Tickets Played: {{ count }}
 <br>
 <!-- Your Win: ${{ cost }} -->
 
+<script>
+        function neg_to_pos(num)
+        {
+        return Math.abs(num);
+        }
+</script>
+<h4>
 {% if cost > 0 %}
-You win: {{cost}}
+You won: ${{ cost }}
 {% else %}
-you lose: {{cost }}
+You lost: $<script> document.write(neg_to_pos({{ cost }}));</script>
 {% endif %}
+</h4>
+<br>
 <a href="/delete_all")>Play Again</a>
 {% endblock body %}

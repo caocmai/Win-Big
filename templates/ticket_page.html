@@ -4,6 +4,7 @@
 <div class="row">
     <div class="col-md-12 text-center">
         <ul class="text-left" style="display:inline-block;vertical-align:middle;">
+        Ticket List
         {% for ticket in tickets %}
         <li><a id="list_id_color" href = "/tickets/{{ ticket._id }}/edit"">{{ ticket.number1 }} {{ ticket.number2 }} {{ ticket.number3 }}</li>
         {% endfor %}
@@ -11,7 +12,7 @@
     </div>
 </div>
 
-<a href="/check_ticket">Check Ticket</a>
-<a href="/">Add More</a>
-<a href="/delete_all")>Reset Ticket</a>
+<a class="btn btn-success" href="/check_ticket">Check Ticket List</a>
+<a class="btn btn-info" href="/">Add More to List</a><br><br>
+<a class="btn btn-danger" href="/delete_all")>Reset Ticket List</a><br>
 {% endblock body %}
